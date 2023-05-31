@@ -1,0 +1,44 @@
+
+----Steps for running map-reduce cloudera : 
+
+1.Create Project - Give Proper Name
+2.Click Next - Go to Libraries
+3.Click Add External Jars - Go to file system/usr/lib/hadoop
+4.Select all jar files and add
+5.Again add jars files - Go to  file system/usr/lib/hadoop/client
+6.Select all jar files and add
+7.Click finish
+
+----Now Creating a Class
+1.Go to src - right click
+2.New->class : give the file name same as Project Name
+3.Click Finish
+
+----Adding MapReduce Code to the File
+*****For WordCount*****
+1.Go to https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
+2.Copy Code and Save
+
+----Export the jar file
+1.Right Click on Project - choose export
+2.Choose Java -> jar file -> click next
+3.Browse Location -> rename same as Project Name -> click Ok!
+4.Click Finish
+
+----Commands To Perform To Run Hadoop MapReduce Program
+1.ls - to list files in directory
+2.Create a file using : cat > <total path to the file with file name>
+3.To check file crreated successfully : cat <total path to the file with file name>
+4.Now Move this file to HDFS:
+5.To Check HDFS status : hdfs dfs -ls /
+6.To make directory : hdfs dfs -mkdir /<foldername>
+
+7.put the text file into this folder : hdfs dfs -put /<total path to the text file in local storage> <path to the folder in cloudera>
+
+8.To check file moved into the hadoop use : hdfs dfs -cat /<path to the file>
+	Affirmation in terminal--> cat: '/WordCount': Is a directory
+	
+9.To run the hadoop file : hadoop jar /<path to the jar file in the local storage> <Give some name same as project(package_name.class_name)> /<path to the textfile in hadoop> /<path to name of output folder>
+
+10.list the contents in output folder:hdfs dfs -ls /<path to name of output folder>
+11.lastly list the content of the output file:hdfs dfs -cat /<path to file>

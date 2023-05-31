@@ -1,0 +1,290 @@
+Problem Statement 6
+
+A. Creating a flight info HBase table:
+---
+hbase(main):007:0> create 'Flight','FlightInfo', 'Schedule', 'Delay'
+0 row(s) in 0.4250 seconds
+---
+
+Entering Values into the Flight table:-
+
+hbase(main):019:0> put 'Flight',1,'FlightInfo:source','Pune'
+0 row(s) in 0.0300 seconds
+
+hbase(main):020:0> put 'Flight',1,'FlightInfo:dest','Mumbai'
+0 row(s) in 0.0120 seconds
+
+hbase(main):021:0> put 'Flight',1,'Schedule:at','10:10'
+0 row(s) in 0.0140 seconds
+
+hbase(main):022:0> put 'Flight',1,'Schedule:dt','12:10'
+0 row(s) in 0.0140 seconds
+
+hbase(main):023:0> put 'Flight',1,'Delay','20'
+0 row(s) in 0.0130 seconds
+
+hbase(main):024:0> put 'Flight',2,'FlightInfo:source','Kolkata'
+0 row(s) in 0.0100 seconds
+
+hbase(main):025:0> put 'Flight',2,'FlightInfo:dest','Mumbai'
+0 row(s) in 0.0100 seconds
+
+hbase(main):026:0> put 'Flight',2,'Schedule:at','11:15'
+0 row(s) in 0.0100 seconds
+
+hbase(main):027:0> put 'Flight',2,'Schedule:dt','13:15'
+0 row(s) in 0.0210 seconds
+
+hbase(main):028:0> put 'Flight',2,'Delay','15'
+0 row(s) in 0.0150 seconds
+
+hbase(main):029:0> put 'Flight',3,'FlightInfo:source','Mumbai'
+0 row(s) in 0.0170 seconds
+
+hbase(main):030:0> put 'Flight',3,'FlightInfo:dest','Delhi'
+0 row(s) in 0.0120 seconds
+
+hbase(main):031:0> put 'Flight',3,'Schedule:at','7:15'
+0 row(s) in 0.0120 seconds
+
+hbase(main):032:0> put 'Flight',3,'Schedule:dt','8:15'
+0 row(s) in 0.0150 seconds
+
+hbase(main):033:0> put 'Flight',3,'Delay','25'
+0 row(s) in 0.0140 seconds
+
+hbase(main):034:0> put 'Flight',4,'FlightInfo:source','Delhi'
+0 row(s) in 0.0100 seconds
+
+hbase(main):035:0> put 'Flight',4,'FlightInfo:dest','Pune'
+0 row(s) in 0.0110 seconds
+
+hbase(main):036:0> put 'Flight',4,'Schedule:at','9:15'
+0 row(s) in 0.0040 seconds
+
+hbase(main):037:0> put 'Flight',4,'Schedule:dt','10:15'
+0 row(s) in 0.0120 seconds
+
+hbase(main):038:0> put 'Flight',3,'Delay','35'
+0 row(s) in 0.0140 seconds
+
+hbase(main):039:0> put 'Flight',4,'Delay','25'
+0 row(s) in 0.0120 seconds
+
+hbase(main):040:0> scan 'Flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=Delay:, timestamp=1685421169858, value=20          
+ 1                   column=FlightInfo:dest, timestamp=1685421028711, value=Mum
+                     bai                                                       
+ 1                   column=FlightInfo:source, timestamp=1685421006690, value=P
+                     une                                                       
+ 1                   column=Schedule:at, timestamp=1685421081035, value=10:10  
+ 1                   column=Schedule:dt, timestamp=1685421138374, value=12:10  
+ 2                   column=Delay:, timestamp=1685421251187, value=15          
+ 2                   column=FlightInfo:dest, timestamp=1685421201550, value=Mum
+                     bai                                                       
+ 2                   column=FlightInfo:source, timestamp=1685421190106, value=K
+                     olkata                                                    
+ 2                   column=Schedule:at, timestamp=1685421218374, value=11:15  
+ 2                   column=Schedule:dt, timestamp=1685421233350, value=13:15  
+ 3                   column=Delay:, timestamp=1685421430246, value=35          
+ 3                   column=FlightInfo:dest, timestamp=1685421281731, value=Del
+                     hi                                                        
+ 3                   column=FlightInfo:source, timestamp=1685421266630, value=M
+                     umbai                                                     
+ 3                   column=Schedule:at, timestamp=1685421303075, value=7:15   
+ 3                   column=Schedule:dt, timestamp=1685421318343, value=8:15   
+ 4                   column=Delay:, timestamp=1685421444658, value=25          
+ 4                   column=FlightInfo:dest, timestamp=1685421386010, value=Pun
+                     e                                                         
+ 4                   column=FlightInfo:source, timestamp=1685421363949, value=D
+                     elhi                                                      
+ 4                   column=Schedule:at, timestamp=1685421403698, value=9:15   
+ 4                   column=Schedule:dt, timestamp=1685421420318, value=10:15  
+4 row(s) in 0.0580 seconds
+
+---
+
+
+
+B.  Demonstrate Creating, Dropping, and altering Database tables in Hbase:
+
+To create a table in HBase:
+$ hbase shell
+hbase> create 'TableName', 'ColumnFamily1', 'ColumnFamily2'
+---
+hbase(main):008:0> create 'flightDemo', 'Col_1', 'Col_2', 'Col_3'
+0 row(s) in 0.1570 seconds
+
+=> Hbase::Table - flightDemo
+hbase(main):009:0> list
+TABLE                                                                           
+Flight                                                                          
+flight                                                                          
+flightDemo                                                                      
+3 row(s) in 0.0250 seconds
+---
+
+To drop a table in HBase:
+$ hbase shell
+hbase> disable 'TableName'
+hbase> drop 'TableName'
+---
+=> ["Flight", "flight", "flightDemo"]
+hbase(main):010:0> disable 'flightDemo'
+0 row(s) in 1.2400 seconds
+
+hbase(main):011:0> drop 'flightDemo'
+0 row(s) in 0.1890 seconds
+
+hbase(main):012:0> list
+TABLE                                                                           
+Flight                                                                          
+flight                                                                          
+2 row(s) in 0.0050 seconds
+---
+
+To alter a table in HBase:
+$ hbase shell
+hbase> alter 'TableName', 'NewColumnFamily'
+---
+hbase(main):013:0> scan 'flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=finfo:dest, timestamp=1678519124581, value=kolkata 
+ 1                   column=finfo:source, timestamp=1678518468224, value=pune  
+ 1                   column=fsch:at, timestamp=1678518546617, value=10.25a.m   
+ 1                   column=fsch:delay, timestamp=1678518721795, value=5min    
+ 1                   column=fsch:dt, timestamp=1678518600430, value=10.25a.m   
+ 2                   column=finfo:source, timestamp=1678518798017, value=pune  
+ 2                   column=fsch:at, timestamp=1678519170016, value=7:00a.m    
+ 2                   column=fsch:dt, timestamp=1678519188625, value=7:30a.m    
+2 row(s) in 0.0630 seconds
+
+hbase(main):014:0> alter 'flight', 'Demo_column'
+Updating all regions with the new schema...
+0/1 regions updated.
+1/1 regions updated.
+Done.
+0 row(s) in 2.1520 seconds
+
+hbase(main):016:0> put 'flight',1,'Demo_column','New_col_added_1'
+0 row(s) in 0.0630 seconds
+
+hbase(main):017:0> put 'flight',2,'Demo_column','New_col_added_1'
+0 row(s) in 0.0060 seconds
+
+hbase(main):018:0> scan 'flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=Demo_column:, timestamp=1685420626019, value=New_co
+                     l_added_1                                                 
+ 1                   column=finfo:dest, timestamp=1678519124581, value=kolkata 
+ 1                   column=finfo:source, timestamp=1678518468224, value=pune  
+ 1                   column=fsch:at, timestamp=1678518546617, value=10.25a.m   
+ 1                   column=fsch:delay, timestamp=1678518721795, value=5min    
+ 1                   column=fsch:dt, timestamp=1678518600430, value=10.25a.m   
+ 2                   column=Demo_column:, timestamp=1685420641310, value=New_co
+                     l_added_1                                                 
+ 2                   column=finfo:source, timestamp=1678518798017, value=pune  
+ 2                   column=fsch:at, timestamp=1678519170016, value=7:00a.m    
+ 2                   column=fsch:dt, timestamp=1678519188625, value=7:30a.m    
+2 row(s) in 0.0300 seconds
+---
+
+
+C. Creating an external Hive table to connect to HBase for Flight Information Table:
+
+---
+hive> CREATE EXTERNAL TABLE FlightHive (f_no int, f_source string, f_dest string, fsh_at string, fsh_dt string, delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key,FlightInfo:source,FlightInfo:dest,Schedule:at,Schedule:dt,Schedule:delay")
+    > TBLPROPERTIES ("hbase.table.name" = "Flight");
+OK
+Time taken: 1.055 seconds
+
+hive> select * from FlightHive
+    > ;
+OK
+1	Pune	Mumbai	10:10	12:10	35
+2	Kolkata	Mumbai	11:15	13:15	25
+3	Mumbai	Delhi	7:15	8:15	15
+4	Delhi	Pune	9:15	10:15	5
+Time taken: 0.687 seconds, Fetched: 4 row(s)
+
+---
+
+D. Find the total departure delay in Hive:
+
+---
+hive> select sum(delay) from FlightHive
+    > ;
+Query ID = cloudera_20230529225858_8c945f4f-4c1c-46e4-880e-15f56450c857
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1685419302279_0001, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1685419302279_0001/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1685419302279_0001
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2023-05-29 22:58:14,907 Stage-1 map = 0%,  reduce = 0%
+2023-05-29 22:58:21,299 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.01 sec
+2023-05-29 22:58:27,593 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 1.66 sec
+MapReduce Total cumulative CPU time: 1 seconds 660 msec
+Ended Job = job_1685419302279_0001
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 1.66 sec   HDFS Read: 7381 HDFS Write: 3 SUCCESS
+Total MapReduce CPU Time Spent: 1 seconds 660 msec
+OK
+80
+Time taken: 26.061 seconds, Fetched: 1 row(s)
+---
+
+E. Find the average departure delay in Hive:
+---
+hive> select avg(delay) from FlightHive
+    > ;
+Query ID = cloudera_20230529230101_ecb03b41-1a44-4eea-a750-8ac18086b295
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1685419302279_0002, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1685419302279_0002/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1685419302279_0002
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2023-05-29 23:01:12,353 Stage-1 map = 0%,  reduce = 0%
+2023-05-29 23:01:18,691 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 0.98 sec
+2023-05-29 23:01:24,996 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 1.61 sec
+MapReduce Total cumulative CPU time: 1 seconds 610 msec
+Ended Job = job_1685419302279_0002
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 1.61 sec   HDFS Read: 7831 HDFS Write: 5 SUCCESS
+Total MapReduce CPU Time Spent: 1 seconds 610 msec
+OK
+20.0
+Time taken: 19.037 seconds, Fetched: 1 row(s)
+---
+
+F. Create an index on the Flight information Table:
+---
+hive> create index hbasefltnew_index
+    > on table FlightHive (delay)
+    > as 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler'
+    > with deferred rebuild;
+OK
+Time taken: 0.28 seconds
+hive> show index on FlightHive;
+OK
+hbasefltnew_index   	flighthive          	delay               	default__flighthive_hbasefltnew_index__	compact             	
+Time taken: 0.091 seconds, Fetched: 1 row(s)
+hive> 
+---
+

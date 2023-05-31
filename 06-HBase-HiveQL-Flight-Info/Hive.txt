@@ -1,0 +1,361 @@
+[cloudera@quickstart ~]$ hive
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j.properties
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> CREATE EXTERNAL TABLE FlightHive (
+    > f_no int,
+    > f_source string,
+    > f_dest string,
+    > fsch_at string,
+    > fsch_dt string,
+    > delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key,FlightInfo:Source,FlightInfo:dest,Schedule:at,Schedule:dt,Delay")
+    > tblproperties ("hbase.table.name" = "Flight")
+    > ;
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. java.lang.RuntimeException: MetaException(message:org.apache.hadoop.hive.serde2.SerDeException Error: the HBase columns mapping contains a badly formed column family, column qualifier specification.)
+hive> CREATE EXTERNAL TABLE FlightHive (
+    > f_no int,
+    > f_source int,
+    > f_dest string,
+    > fsch_at string,
+    > fsch_dt string,
+    > delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key,FlightInfo:Source,FlightInfo:dest,Schedule:at,Schedule:dt,Delay")
+    > tblproperties ("hbase.table.name" = "Flight");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. java.lang.RuntimeException: MetaException(message:org.apache.hadoop.hive.serde2.SerDeException Error: the HBase columns mapping contains a badly formed column family, column qualifier specification.)
+hive> CREATE EXTERNAL TABLE FlightHive (
+    > f_no int,
+    > f_source string,
+    > f_dest string,
+    > fsch_at string,
+    > stored by 'org.apache.hadoop.hive.hbase.HbaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key,FlightInfo:Source,FlightInfo:dest,Schedule:at,Schedule:dt,Delay")
+    > tblproperties ("hbase.table.name" = "Flight");
+NoViableAltException(47@[])
+	at org.apache.hadoop.hive.ql.parse.HiveParser.type(HiveParser.java:38574)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.colType(HiveParser.java:38339)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.columnNameType(HiveParser.java:38039)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.columnNameTypeList(HiveParser.java:36262)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.createTableStatement(HiveParser.java:4840)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.ddlStatement(HiveParser.java:2355)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:1579)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1057)
+	at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:199)
+	at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:166)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:393)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:307)
+	at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1110)
+	at org.apache.hadoop.hive.ql.Driver.runInternal(Driver.java:1158)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1047)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1037)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:207)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:159)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:370)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:756)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:675)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:615)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)
+FAILED: ParseException line 6:7 cannot recognize input near 'by' ''org.apache.hadoop.hive.hbase.HbaseStorageHandler'' 'with' in column type
+hive> CREATE EXTERNAL TABLE FlightHive (
+    > f_no int,
+    > f_source string,
+    > f_dest string,
+    > fsch_at string,
+    > fsch_dt string,
+    > delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key,FlightInfo:source,FlightInfo:dest,Schedule:at,Schedule:dt,Delay")
+    > tblproperties ("hbase.table.name" = "Flight");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. java.lang.RuntimeException: MetaException(message:org.apache.hadoop.hive.serde2.SerDeException Error: the HBase columns mapping contains a badly formed column family, column qualifier specification.)
+hive> CREATE EXTERNAL TABLE FlightHive (f_no int, f_source string, f_dest string, fsh_at string, fsh_dt string, delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key, FlightInfo:source,FlightInfo:dest,Schedule:at,Schedule:dt,Delay");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. java.lang.RuntimeException: MetaException(message:org.apache.hadoop.hive.serde2.SerDeException Error: the HBase columns mapping contains a badly formed column family, column qualifier specification.)
+hive> CREATE EXTERNAL TABLE FlightHive (f_no int, f_source string, f_dest string, fsh_at string, fsh_dt string, delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key, FlightInfo:source,FlightInfo:dest,Schedule:at,Schedule:dt,Delay:");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. java.lang.RuntimeException: MetaException(message:org.apache.hadoop.hive.serde2.SerDeException org.apache.hadoop.hive.hbase.HBaseSerDe: hbase column family 'Delay' should be mapped to Map<? extends LazyPrimitive<?, ?>,?>, that is the Key for the map should be of primitive type, but is mapped to int)
+hive> CREATE EXTERNAL TABLE FlightHive (f_no int, f_source string, f_dest string, fsh_at string, fsh_dt string, delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key, FlightInfo:source,FlightInfo:dest,Schedule:at,Schedule:dt,Delay:")
+    > tblproperties ("hbase.table.name" = "Flight");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. java.lang.RuntimeException: MetaException(message:org.apache.hadoop.hive.serde2.SerDeException org.apache.hadoop.hive.hbase.HBaseSerDe: hbase column family 'Delay' should be mapped to Map<? extends LazyPrimitive<?, ?>,?>, that is the Key for the map should be of primitive type, but is mapped to int)
+hive> CREATE EXTERNAL TABLE FlightHive (f_no int, f_source string, f_dest string, fsh_at string, fsh_dt string, delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key, FlightInfo:source,FlightInfo:dest,Schedule:at,Schedule:dt,Delay")
+    > tblproperties ("hbase.table.name" = "Flight");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. java.lang.RuntimeException: MetaException(message:org.apache.hadoop.hive.serde2.SerDeException Error: the HBase columns mapping contains a badly formed column family, column qualifier specification.)
+
+
+[cloudera@quickstart ~]$ hive
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j.properties
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> CREATE external TABLE hbase_flight(fno int, fsource string,fdest string,fsh_at string,fsh_dt string, delay int)
+    > STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > WITH SERDEPROPERTIES ("hbase.columns.mapping"=":key,FlightInfo:source,FlightInfo:dest,Schedlue:at,Schedule:dt,Schedule:delay")
+    > TBLPROPERTIES ("hbase.table.name" = "Flight");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. MetaException(message:MetaException(message:Column Family Schedlue is not defined in hbase table Flight)
+	at org.apache.hadoop.hive.hbase.HBaseStorageHandler.preCreateTable(HBaseStorageHandler.java:235)
+	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.createTable(HiveMetaStoreClient.java:653)
+	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.createTable(HiveMetaStoreClient.java:646)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.invoke(RetryingMetaStoreClient.java:91)
+	at com.sun.proxy.$Proxy9.createTable(Unknown Source)
+	at org.apache.hadoop.hive.ql.metadata.Hive.createTable(Hive.java:681)
+	at org.apache.hadoop.hive.ql.exec.DDLTask.createTable(DDLTask.java:4016)
+	at org.apache.hadoop.hive.ql.exec.DDLTask.execute(DDLTask.java:301)
+	at org.apache.hadoop.hive.ql.exec.Task.executeTask(Task.java:160)
+	at org.apache.hadoop.hive.ql.exec.TaskRunner.runSequential(TaskRunner.java:88)
+	at org.apache.hadoop.hive.ql.Driver.launchTask(Driver.java:1638)
+	at org.apache.hadoop.hive.ql.Driver.execute(Driver.java:1397)
+	at org.apache.hadoop.hive.ql.Driver.runInternal(Driver.java:1181)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1047)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1037)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:207)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:159)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:370)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:756)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:675)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:615)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)
+)
+hive> CREATE external TABLE hbase_flight(fno int, fsource string,fdest string,fsh_at string,fsh_dt string, delay string)
+    > STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > WITH SERDEPROPERTIES ("hbase.columns.mapping"=":key,FlightInfo:source,FlightInfo:dest,Schedlue:at,Schedule:dt,Schedule:delay")
+    > TBLPROPERTIES ("hbase.table.name" = "Flight");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. MetaException(message:MetaException(message:Column Family Schedlue is not defined in hbase table Flight)
+	at org.apache.hadoop.hive.hbase.HBaseStorageHandler.preCreateTable(HBaseStorageHandler.java:235)
+	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.createTable(HiveMetaStoreClient.java:653)
+	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.createTable(HiveMetaStoreClient.java:646)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.invoke(RetryingMetaStoreClient.java:91)
+	at com.sun.proxy.$Proxy9.createTable(Unknown Source)
+	at org.apache.hadoop.hive.ql.metadata.Hive.createTable(Hive.java:681)
+	at org.apache.hadoop.hive.ql.exec.DDLTask.createTable(DDLTask.java:4016)
+	at org.apache.hadoop.hive.ql.exec.DDLTask.execute(DDLTask.java:301)
+	at org.apache.hadoop.hive.ql.exec.Task.executeTask(Task.java:160)
+	at org.apache.hadoop.hive.ql.exec.TaskRunner.runSequential(TaskRunner.java:88)
+	at org.apache.hadoop.hive.ql.Driver.launchTask(Driver.java:1638)
+	at org.apache.hadoop.hive.ql.Driver.execute(Driver.java:1397)
+	at org.apache.hadoop.hive.ql.Driver.runInternal(Driver.java:1181)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1047)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1037)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:207)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:159)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:370)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:756)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:675)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:615)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)
+)
+hive> CREATE EXTERNAL TABLE FlightHive (f_no int, f_source string, f_dest string, fsh_at string, fsh_dt string, delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key,FlightInfo:source,FlightInfo:dest,Schedule:at,Schedule:dt,Dchedule:delay")
+    > TBLPROPERTIES ("hbase.table.name" = "Flight");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. MetaException(message:MetaException(message:Column Family Dchedule is not defined in hbase table Flight)
+	at org.apache.hadoop.hive.hbase.HBaseStorageHandler.preCreateTable(HBaseStorageHandler.java:235)
+	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.createTable(HiveMetaStoreClient.java:653)
+	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.createTable(HiveMetaStoreClient.java:646)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.invoke(RetryingMetaStoreClient.java:91)
+	at com.sun.proxy.$Proxy9.createTable(Unknown Source)
+	at org.apache.hadoop.hive.ql.metadata.Hive.createTable(Hive.java:681)
+	at org.apache.hadoop.hive.ql.exec.DDLTask.createTable(DDLTask.java:4016)
+	at org.apache.hadoop.hive.ql.exec.DDLTask.execute(DDLTask.java:301)
+	at org.apache.hadoop.hive.ql.exec.Task.executeTask(Task.java:160)
+	at org.apache.hadoop.hive.ql.exec.TaskRunner.runSequential(TaskRunner.java:88)
+	at org.apache.hadoop.hive.ql.Driver.launchTask(Driver.java:1638)
+	at org.apache.hadoop.hive.ql.Driver.execute(Driver.java:1397)
+	at org.apache.hadoop.hive.ql.Driver.runInternal(Driver.java:1181)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1047)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1037)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:207)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:159)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:370)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:756)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:675)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:615)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)
+)
+hive> CREATE EXTERNAL TABLE FlightHive (f_no int, f_source string, f_dest string, fsh_at string, fsh_dt string, delay string)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key,FlightInfo:source,FlightInfo:dest,Schedule:at,Schedule:dt,Dchedule:delay");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. MetaException(message:MetaException(message:HBase table flighthive doesn't exist while the table is declared as an external table.)
+	at org.apache.hadoop.hive.hbase.HBaseStorageHandler.preCreateTable(HBaseStorageHandler.java:215)
+	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.createTable(HiveMetaStoreClient.java:653)
+	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.createTable(HiveMetaStoreClient.java:646)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.invoke(RetryingMetaStoreClient.java:91)
+	at com.sun.proxy.$Proxy9.createTable(Unknown Source)
+	at org.apache.hadoop.hive.ql.metadata.Hive.createTable(Hive.java:681)
+	at org.apache.hadoop.hive.ql.exec.DDLTask.createTable(DDLTask.java:4016)
+	at org.apache.hadoop.hive.ql.exec.DDLTask.execute(DDLTask.java:301)
+	at org.apache.hadoop.hive.ql.exec.Task.executeTask(Task.java:160)
+	at org.apache.hadoop.hive.ql.exec.TaskRunner.runSequential(TaskRunner.java:88)
+	at org.apache.hadoop.hive.ql.Driver.launchTask(Driver.java:1638)
+	at org.apache.hadoop.hive.ql.Driver.execute(Driver.java:1397)
+	at org.apache.hadoop.hive.ql.Driver.runInternal(Driver.java:1181)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1047)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1037)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:207)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:159)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:370)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:756)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:675)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:615)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)
+)
+hive> CREATE EXTERNAL TABLE FlightHive (f_no int, f_source string, f_dest string, fsh_at string, fsh_dt string, delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key,FlightInfo:source,FlightInfo:dest,Schedule:at,Schedule:dt,Schedule:delay");
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. MetaException(message:MetaException(message:HBase table flighthive doesn't exist while the table is declared as an external table.)
+	at org.apache.hadoop.hive.hbase.HBaseStorageHandler.preCreateTable(HBaseStorageHandler.java:215)
+	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.createTable(HiveMetaStoreClient.java:653)
+	at org.apache.hadoop.hive.metastore.HiveMetaStoreClient.createTable(HiveMetaStoreClient.java:646)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.hive.metastore.RetryingMetaStoreClient.invoke(RetryingMetaStoreClient.java:91)
+	at com.sun.proxy.$Proxy9.createTable(Unknown Source)
+	at org.apache.hadoop.hive.ql.metadata.Hive.createTable(Hive.java:681)
+	at org.apache.hadoop.hive.ql.exec.DDLTask.createTable(DDLTask.java:4016)
+	at org.apache.hadoop.hive.ql.exec.DDLTask.execute(DDLTask.java:301)
+	at org.apache.hadoop.hive.ql.exec.Task.executeTask(Task.java:160)
+	at org.apache.hadoop.hive.ql.exec.TaskRunner.runSequential(TaskRunner.java:88)
+	at org.apache.hadoop.hive.ql.Driver.launchTask(Driver.java:1638)
+	at org.apache.hadoop.hive.ql.Driver.execute(Driver.java:1397)
+	at org.apache.hadoop.hive.ql.Driver.runInternal(Driver.java:1181)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1047)
+	at org.apache.hadoop.hive.ql.Driver.run(Driver.java:1037)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:207)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:159)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:370)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:756)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:675)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:615)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:221)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:136)
+)
+hive> CREATE EXTERNAL TABLE FlightHive (f_no int, f_source string, f_dest string, fsh_at string, fsh_dt string, delay int)
+    > stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+    > with serdeproperties ("hbase.columns.mapping" = ":key,FlightInfo:source,FlightInfo:dest,Schedule:at,Schedule:dt,Schedule:delay")
+    > TBLPROPERTIES ("hbase.table.name" = "Flight");
+OK
+Time taken: 1.055 seconds
+hive> select * from FlightHive
+    > ;
+OK
+1	Pune	Mumbai	10:10	12:10	35
+2	Kolkata	Mumbai	11:15	13:15	25
+3	Mumbai	Delhi	7:15	8:15	15
+4	Delhi	Pune	9:15	10:15	5
+Time taken: 0.687 seconds, Fetched: 4 row(s)
+hive> select sum(delay) from FlightHive
+    > ;
+Query ID = cloudera_20230529225858_8c945f4f-4c1c-46e4-880e-15f56450c857
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1685419302279_0001, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1685419302279_0001/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1685419302279_0001
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2023-05-29 22:58:14,907 Stage-1 map = 0%,  reduce = 0%
+2023-05-29 22:58:21,299 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.01 sec
+2023-05-29 22:58:27,593 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 1.66 sec
+MapReduce Total cumulative CPU time: 1 seconds 660 msec
+Ended Job = job_1685419302279_0001
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 1.66 sec   HDFS Read: 7381 HDFS Write: 3 SUCCESS
+Total MapReduce CPU Time Spent: 1 seconds 660 msec
+OK
+80
+Time taken: 26.061 seconds, Fetched: 1 row(s)
+hive> select avg(delay) from FlightHive
+    > ;
+Query ID = cloudera_20230529230101_ecb03b41-1a44-4eea-a750-8ac18086b295
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1685419302279_0002, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1685419302279_0002/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1685419302279_0002
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2023-05-29 23:01:12,353 Stage-1 map = 0%,  reduce = 0%
+2023-05-29 23:01:18,691 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 0.98 sec
+2023-05-29 23:01:24,996 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 1.61 sec
+MapReduce Total cumulative CPU time: 1 seconds 610 msec
+Ended Job = job_1685419302279_0002
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 1.61 sec   HDFS Read: 7831 HDFS Write: 5 SUCCESS
+Total MapReduce CPU Time Spent: 1 seconds 610 msec
+OK
+20.0
+Time taken: 19.037 seconds, Fetched: 1 row(s)
+hive> create index hbasefltnew_index
+    > on table FlightHive (delay)
+    > as 'org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler'
+    > with deferred rebuild;
+OK
+Time taken: 0.28 seconds
+hive> show index on FlightHive;
+OK
+hbasefltnew_index   	flighthive          	delay               	default__flighthive_hbasefltnew_index__	compact             	
+Time taken: 0.091 seconds, Fetched: 1 row(s)
+
+

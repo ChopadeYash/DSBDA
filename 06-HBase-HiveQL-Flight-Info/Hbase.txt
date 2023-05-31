@@ -1,0 +1,513 @@
+
+hbase(main):001:0> list
+TABLE                                                                           
+FlightInfo                                                                      
+flight                                                                          
+2 row(s) in 0.0980 seconds
+
+=> ["FlightInfo", "flight"]
+hbase(main):002:0> scan 'flight'
+ROW                   COLUMN+CELL                                               
+ 1                    column=finfo:dest, timestamp=1678519124581, value=kolkata 
+ 1                    column=finfo:source, timestamp=1678518468224, value=pune  
+ 1                    column=fsch:at, timestamp=1678518546617, value=10.25a.m   
+ 1                    column=fsch:delay, timestamp=1678518721795, value=5min    
+ 1                    column=fsch:dt, timestamp=1678518600430, value=10.25a.m   
+ 2                    column=finfo:source, timestamp=1678518798017, value=pune  
+ 2                    column=fsch:at, timestamp=1678519170016, value=7:00a.m    
+ 2                    column=fsch:dt, timestamp=1678519188625, value=7:30a.m    
+2 row(s) in 0.1420 seconds
+
+hbase(main):003:0> scan 'FlightInfo'
+ROW                   COLUMN+CELL                                               
+0 row(s) in 0.0370 seconds
+
+hbase(main):004:0> disable 'FlightInfo'
+0 row(s) in 1.2980 seconds
+
+hbase(main):005:0> drop 'FlightInfo'
+0 row(s) in 0.2120 seconds
+
+hbase(main):006:0> list
+TABLE                                                                           
+flight                                                                          
+1 row(s) in 0.0140 seconds
+
+=> ["flight"]
+hbase(main):007:0> create 'Flight','FlightInfo', 'Schedule', 'Delay'
+0 row(s) in 0.4250 seconds
+
+=> Hbase::Table - Flight
+hbase(main):008:0> create 'flightDemo', 'Col_1', 'Col_2', 'Col_3'
+0 row(s) in 0.1570 seconds
+
+=> Hbase::Table - flightDemo
+hbase(main):009:0> list
+TABLE                                                                           
+Flight                                                                          
+flight                                                                          
+flightDemo                                                                      
+3 row(s) in 0.0250 seconds
+
+=> ["Flight", "flight", "flightDemo"]
+hbase(main):010:0> disable 'flightDemo'
+0 row(s) in 1.2400 seconds
+
+hbase(main):011:0> drop 'flightDemo'
+0 row(s) in 0.1890 seconds
+
+hbase(main):012:0> list
+TABLE                                                                           
+Flight                                                                          
+flight                                                                          
+2 row(s) in 0.0050 seconds
+
+=> ["Flight", "flight"]
+hbase(main):013:0> scan 'flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=finfo:dest, timestamp=1678519124581, value=kolkata 
+ 1                   column=finfo:source, timestamp=1678518468224, value=pune  
+ 1                   column=fsch:at, timestamp=1678518546617, value=10.25a.m   
+ 1                   column=fsch:delay, timestamp=1678518721795, value=5min    
+ 1                   column=fsch:dt, timestamp=1678518600430, value=10.25a.m   
+ 2                   column=finfo:source, timestamp=1678518798017, value=pune  
+ 2                   column=fsch:at, timestamp=1678519170016, value=7:00a.m    
+ 2                   column=fsch:dt, timestamp=1678519188625, value=7:30a.m    
+2 row(s) in 0.0630 seconds
+
+hbase(main):014:0> alter 'flight', 'Demo_column'
+Updating all regions with the new schema...
+0/1 regions updated.
+1/1 regions updated.
+Done.
+0 row(s) in 2.1520 seconds
+
+hbase(main):015:0> scan 'flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=finfo:dest, timestamp=1678519124581, value=kolkata 
+ 1                   column=finfo:source, timestamp=1678518468224, value=pune  
+ 1                   column=fsch:at, timestamp=1678518546617, value=10.25a.m   
+ 1                   column=fsch:delay, timestamp=1678518721795, value=5min    
+ 1                   column=fsch:dt, timestamp=1678518600430, value=10.25a.m   
+ 2                   column=finfo:source, timestamp=1678518798017, value=pune  
+ 2                   column=fsch:at, timestamp=1678519170016, value=7:00a.m    
+ 2                   column=fsch:dt, timestamp=1678519188625, value=7:30a.m    
+2 row(s) in 0.0190 seconds
+
+hbase(main):016:0> put 'flight',1,'Demo_column','New_col_added_1'
+0 row(s) in 0.0630 seconds
+
+hbase(main):017:0> put 'flight',2,'Demo_column','New_col_added_1'
+0 row(s) in 0.0060 seconds
+
+hbase(main):018:0> scan 'flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=Demo_column:, timestamp=1685420626019, value=New_co
+                     l_added_1                                                 
+ 1                   column=finfo:dest, timestamp=1678519124581, value=kolkata 
+ 1                   column=finfo:source, timestamp=1678518468224, value=pune  
+ 1                   column=fsch:at, timestamp=1678518546617, value=10.25a.m   
+ 1                   column=fsch:delay, timestamp=1678518721795, value=5min    
+ 1                   column=fsch:dt, timestamp=1678518600430, value=10.25a.m   
+ 2                   column=Demo_column:, timestamp=1685420641310, value=New_co
+                     l_added_1                                                 
+ 2                   column=finfo:source, timestamp=1678518798017, value=pune  
+ 2                   column=fsch:at, timestamp=1678519170016, value=7:00a.m    
+ 2                   column=fsch:dt, timestamp=1678519188625, value=7:30a.m    
+2 row(s) in 0.0300 seconds
+
+hbase(main):019:0> put 'Flight',1,'FlightInfo:source','Pune'
+0 row(s) in 0.0300 seconds
+
+hbase(main):020:0> put 'Flight',1,'FlightInfo:dest','Mumbai'
+0 row(s) in 0.0120 seconds
+
+hbase(main):021:0> put 'Flight',1,'Schedule:at','10:10'
+0 row(s) in 0.0140 seconds
+
+hbase(main):022:0> put 'Flight',1,'Schedule:dt','12:10'
+0 row(s) in 0.0140 seconds
+
+hbase(main):023:0> put 'Flight',1,'Delay','20'
+0 row(s) in 0.0130 seconds
+
+hbase(main):024:0> put 'Flight',2,'FlightInfo:source','Kolkata'
+0 row(s) in 0.0100 seconds
+
+hbase(main):025:0> put 'Flight',2,'FlightInfo:dest','Mumbai'
+0 row(s) in 0.0100 seconds
+
+hbase(main):026:0> put 'Flight',2,'Schedule:at','11:15'
+0 row(s) in 0.0100 seconds
+
+hbase(main):027:0> put 'Flight',2,'Schedule:dt','13:15'
+0 row(s) in 0.0210 seconds
+
+hbase(main):028:0> put 'Flight',2,'Delay','15'
+0 row(s) in 0.0150 seconds
+
+hbase(main):029:0> put 'Flight',3,'FlightInfo:source','Mumbai'
+0 row(s) in 0.0170 seconds
+
+hbase(main):030:0> put 'Flight',3,'FlightInfo:dest','Delhi'
+0 row(s) in 0.0120 seconds
+
+hbase(main):031:0> put 'Flight',3,'Schedule:at','7:15'
+0 row(s) in 0.0120 seconds
+
+hbase(main):032:0> put 'Flight',3,'Schedule:dt','8:15'
+0 row(s) in 0.0150 seconds
+
+hbase(main):033:0> put 'Flight',3,'Delay','25'
+0 row(s) in 0.0140 seconds
+
+hbase(main):034:0> put 'Flight',4,'FlightInfo:source','Delhi'
+0 row(s) in 0.0100 seconds
+
+hbase(main):035:0> put 'Flight',4,'FlightInfo:dest','Pune'
+0 row(s) in 0.0110 seconds
+
+hbase(main):036:0> put 'Flight',4,'Schedule:at','9:15'
+0 row(s) in 0.0040 seconds
+
+hbase(main):037:0> put 'Flight',4,'Schedule:dt','10:15'
+0 row(s) in 0.0120 seconds
+
+hbase(main):038:0> put 'Flight',3,'Delay','35'
+0 row(s) in 0.0140 seconds
+
+hbase(main):039:0> put 'Flight',4,'Delay','25'
+0 row(s) in 0.0120 seconds
+
+hbase(main):040:0> scan 'Flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=Delay:, timestamp=1685421169858, value=20          
+ 1                   column=FlightInfo:dest, timestamp=1685421028711, value=Mum
+                     bai                                                       
+ 1                   column=FlightInfo:source, timestamp=1685421006690, value=P
+                     une                                                       
+ 1                   column=Schedule:at, timestamp=1685421081035, value=10:10  
+ 1                   column=Schedule:dt, timestamp=1685421138374, value=12:10  
+ 2                   column=Delay:, timestamp=1685421251187, value=15          
+ 2                   column=FlightInfo:dest, timestamp=1685421201550, value=Mum
+                     bai                                                       
+ 2                   column=FlightInfo:source, timestamp=1685421190106, value=K
+                     olkata                                                    
+ 2                   column=Schedule:at, timestamp=1685421218374, value=11:15  
+ 2                   column=Schedule:dt, timestamp=1685421233350, value=13:15  
+ 3                   column=Delay:, timestamp=1685421430246, value=35          
+ 3                   column=FlightInfo:dest, timestamp=1685421281731, value=Del
+                     hi                                                        
+ 3                   column=FlightInfo:source, timestamp=1685421266630, value=M
+                     umbai                                                     
+ 3                   column=Schedule:at, timestamp=1685421303075, value=7:15   
+ 3                   column=Schedule:dt, timestamp=1685421318343, value=8:15   
+ 4                   column=Delay:, timestamp=1685421444658, value=25          
+ 4                   column=FlightInfo:dest, timestamp=1685421386010, value=Pun
+                     e                                                         
+ 4                   column=FlightInfo:source, timestamp=1685421363949, value=D
+                     elhi                                                      
+ 4                   column=Schedule:at, timestamp=1685421403698, value=9:15   
+ 4                   column=Schedule:dt, timestamp=1685421420318, value=10:15  
+4 row(s) in 0.0580 seconds
+
+hbase(main):041:0> put 'Flight',4,'Delay:min','25'
+0 row(s) in 0.0140 seconds
+
+hbase(main):042:0> scan 'Flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=Delay:, timestamp=1685421169858, value=20          
+ 1                   column=FlightInfo:dest, timestamp=1685421028711, value=Mum
+                     bai                                                       
+ 1                   column=FlightInfo:source, timestamp=1685421006690, value=P
+                     une                                                       
+ 1                   column=Schedule:at, timestamp=1685421081035, value=10:10  
+ 1                   column=Schedule:dt, timestamp=1685421138374, value=12:10  
+ 2                   column=Delay:, timestamp=1685421251187, value=15          
+ 2                   column=FlightInfo:dest, timestamp=1685421201550, value=Mum
+                     bai                                                       
+ 2                   column=FlightInfo:source, timestamp=1685421190106, value=K
+                     olkata                                                    
+ 2                   column=Schedule:at, timestamp=1685421218374, value=11:15  
+ 2                   column=Schedule:dt, timestamp=1685421233350, value=13:15  
+ 3                   column=Delay:, timestamp=1685421430246, value=35          
+ 3                   column=FlightInfo:dest, timestamp=1685421281731, value=Del
+                     hi                                                        
+ 3                   column=FlightInfo:source, timestamp=1685421266630, value=M
+                     umbai                                                     
+ 3                   column=Schedule:at, timestamp=1685421303075, value=7:15   
+ 3                   column=Schedule:dt, timestamp=1685421318343, value=8:15   
+ 4                   column=Delay:, timestamp=1685421444658, value=25          
+ 4                   column=Delay:min, timestamp=1685424657389, value=25       
+ 4                   column=FlightInfo:dest, timestamp=1685421386010, value=Pun
+                     e                                                         
+ 4                   column=FlightInfo:source, timestamp=1685421363949, value=D
+                     elhi                                                      
+ 4                   column=Schedule:at, timestamp=1685421403698, value=9:15   
+ 4                   column=Schedule:dt, timestamp=1685421420318, value=10:15  
+4 row(s) in 0.0140 seconds
+
+hbase(main):043:0> put 'Flight',3,'Delay:min','35'
+0 row(s) in 0.0130 seconds
+
+hbase(main):044:0> put 'Flight',2,'Delay:min','15'
+0 row(s) in 0.0130 seconds
+
+hbase(main):045:0> put 'Flight',1,'Delay:min','20'
+0 row(s) in 0.0110 seconds
+
+hbase(main):046:0> scan 'Flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=Delay:, timestamp=1685421169858, value=20          
+ 1                   column=Delay:min, timestamp=1685424706188, value=20       
+ 1                   column=FlightInfo:dest, timestamp=1685421028711, value=Mum
+                     bai                                                       
+ 1                   column=FlightInfo:source, timestamp=1685421006690, value=P
+                     une                                                       
+ 1                   column=Schedule:at, timestamp=1685421081035, value=10:10  
+ 1                   column=Schedule:dt, timestamp=1685421138374, value=12:10  
+ 2                   column=Delay:, timestamp=1685421251187, value=15          
+ 2                   column=Delay:min, timestamp=1685424696441, value=15       
+ 2                   column=FlightInfo:dest, timestamp=1685421201550, value=Mum
+                     bai                                                       
+ 2                   column=FlightInfo:source, timestamp=1685421190106, value=K
+                     olkata                                                    
+ 2                   column=Schedule:at, timestamp=1685421218374, value=11:15  
+ 2                   column=Schedule:dt, timestamp=1685421233350, value=13:15  
+ 3                   column=Delay:, timestamp=1685421430246, value=35          
+ 3                   column=Delay:min, timestamp=1685424686687, value=35       
+ 3                   column=FlightInfo:dest, timestamp=1685421281731, value=Del
+                     hi                                                        
+ 3                   column=FlightInfo:source, timestamp=1685421266630, value=M
+                     umbai                                                     
+ 3                   column=Schedule:at, timestamp=1685421303075, value=7:15   
+ 3                   column=Schedule:dt, timestamp=1685421318343, value=8:15   
+ 4                   column=Delay:, timestamp=1685421444658, value=25          
+ 4                   column=Delay:min, timestamp=1685424657389, value=25       
+ 4                   column=FlightInfo:dest, timestamp=1685421386010, value=Pun
+                     e                                                         
+ 4                   column=FlightInfo:source, timestamp=1685421363949, value=D
+                     elhi                                                      
+ 4                   column=Schedule:at, timestamp=1685421403698, value=9:15   
+ 4                   column=Schedule:dt, timestamp=1685421420318, value=10:15  
+4 row(s) in 0.0480 seconds
+
+hbase(main):047:0> put 'Flight',1,'Delay:m
+[1]+  Stopped                 hbase shell
+[cloudera@quickstart ~]$ hbase shell
+^[[A^[[B2023-05-29 22:35:51,247 INFO  [main] Configuration.deprecation: hadoop.native.lib is deprecated. Instead, use io.native.lib.available
+HBase Shell; enter 'help<RETURN>' for list of supported commands.
+Type "exit<RETURN>" to leave the HBase Shell
+Version 1.0.0-cdh5.4.2, rUnknown, Tue May 19 17:07:29 PDT 2015
+
+hbase(main):001:0> list
+TABLE                                                                          
+Flight                                                                         
+flight                                                                         
+2 row(s) in 0.0910 seconds
+
+=> ["Flight", "flight"]
+hbase(main):002:0> scan 'Flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=Delay:, timestamp=1685421169858, value=20          
+ 1                   column=Delay:min, timestamp=1685424706188, value=20       
+ 1                   column=FlightInfo:dest, timestamp=1685421028711, value=Mum
+                     bai                                                       
+ 1                   column=FlightInfo:source, timestamp=1685421006690, value=P
+                     une                                                       
+ 1                   column=Schedule:at, timestamp=1685421081035, value=10:10  
+ 1                   column=Schedule:dt, timestamp=1685421138374, value=12:10  
+ 2                   column=Delay:, timestamp=1685421251187, value=15          
+ 2                   column=Delay:min, timestamp=1685424696441, value=15       
+ 2                   column=FlightInfo:dest, timestamp=1685421201550, value=Mum
+                     bai                                                       
+ 2                   column=FlightInfo:source, timestamp=1685421190106, value=K
+                     olkata                                                    
+ 2                   column=Schedule:at, timestamp=1685421218374, value=11:15  
+ 2                   column=Schedule:dt, timestamp=1685421233350, value=13:15  
+ 3                   column=Delay:, timestamp=1685421430246, value=35          
+ 3                   column=Delay:min, timestamp=1685424686687, value=35       
+ 3                   column=FlightInfo:dest, timestamp=1685421281731, value=Del
+                     hi                                                        
+ 3                   column=FlightInfo:source, timestamp=1685421266630, value=M
+                     umbai                                                     
+ 3                   column=Schedule:at, timestamp=1685421303075, value=7:15   
+ 3                   column=Schedule:dt, timestamp=1685421318343, value=8:15   
+ 4                   column=Delay:, timestamp=1685421444658, value=25          
+ 4                   column=Delay:min, timestamp=1685424657389, value=25       
+ 4                   column=FlightInfo:dest, timestamp=1685421386010, value=Pun
+                     e                                                         
+ 4                   column=FlightInfo:source, timestamp=1685421363949, value=D
+                     elhi                                                      
+ 4                   column=Schedule:at, timestamp=1685421403698, value=9:15   
+ 4                   column=Schedule:dt, timestamp=1685421420318, value=10:15  
+4 row(s) in 0.1870 seconds
+
+hbase(main):003:0> put 'Flight',1,'Schedule:delay',35
+0 row(s) in 0.0680 seconds
+
+hbase(main):004:0> put 'Flight',1,'Delay',35
+0 row(s) in 0.0160 seconds
+
+hbase(main):005:0> put 'Flight',2,'Delay',15
+0 row(s) in 0.0080 seconds
+
+hbase(main):006:0> put 'Flight',3,'Delay',20
+0 row(s) in 0.0130 seconds
+
+hbase(main):007:0> put 'Flight',4,'Delay',25
+0 row(s) in 0.0170 seconds
+
+hbase(main):008:0> scan 'Flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=Delay:, timestamp=1685425048377, value=35          
+ 1                   column=Delay:min, timestamp=1685424706188, value=20       
+ 1                   column=FlightInfo:dest, timestamp=1685421028711, value=Mum
+                     bai                                                       
+ 1                   column=FlightInfo:source, timestamp=1685421006690, value=P
+                     une                                                       
+ 1                   column=Schedule:at, timestamp=1685421081035, value=10:10  
+ 1                   column=Schedule:delay, timestamp=1685425024370, value=35  
+ 1                   column=Schedule:dt, timestamp=1685421138374, value=12:10  
+ 2                   column=Delay:, timestamp=1685425059791, value=15          
+ 2                   column=Delay:min, timestamp=1685424696441, value=15       
+ 2                   column=FlightInfo:dest, timestamp=1685421201550, value=Mum
+                     bai                                                       
+ 2                   column=FlightInfo:source, timestamp=1685421190106, value=K
+                     olkata                                                    
+ 2                   column=Schedule:at, timestamp=1685421218374, value=11:15  
+ 2                   column=Schedule:dt, timestamp=1685421233350, value=13:15  
+ 3                   column=Delay:, timestamp=1685425070282, value=20          
+ 3                   column=Delay:min, timestamp=1685424686687, value=35       
+ 3                   column=FlightInfo:dest, timestamp=1685421281731, value=Del
+                     hi                                                        
+ 3                   column=FlightInfo:source, timestamp=1685421266630, value=M
+                     umbai                                                     
+ 3                   column=Schedule:at, timestamp=1685421303075, value=7:15   
+ 3                   column=Schedule:dt, timestamp=1685421318343, value=8:15   
+ 4                   column=Delay:, timestamp=1685425079608, value=25          
+ 4                   column=Delay:min, timestamp=1685424657389, value=25       
+ 4                   column=FlightInfo:dest, timestamp=1685421386010, value=Pun
+                     e                                                         
+ 4                   column=FlightInfo:source, timestamp=1685421363949, value=D
+                     elhi                                                      
+ 4                   column=Schedule:at, timestamp=1685421403698, value=9:15   
+ 4                   column=Schedule:dt, timestamp=1685421420318, value=10:15  
+4 row(s) in 0.0590 seconds
+
+hbase(main):009:0> put 'Flight',1,'Schedule:delay',35
+0 row(s) in 0.0110 seconds
+
+hbase(main):010:0> put 'Flight',2,'Schedule:delay',25
+0 row(s) in 0.0140 seconds
+
+hbase(main):011:0> put 'Flight',3,'Schedule:delay',15
+0 row(s) in 0.0120 seconds
+
+hbase(main):012:0> put 'Flight',4,'Schedule:delay',5
+0 row(s) in 0.0130 seconds
+
+hbase(main):013:0> scan 'Flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=Delay:, timestamp=1685425048377, value=35          
+ 1                   column=Delay:min, timestamp=1685424706188, value=20       
+ 1                   column=FlightInfo:dest, timestamp=1685421028711, value=Mum
+                     bai                                                       
+ 1                   column=FlightInfo:source, timestamp=1685421006690, value=P
+                     une                                                       
+ 1                   column=Schedule:at, timestamp=1685421081035, value=10:10  
+ 1                   column=Schedule:delay, timestamp=1685425182161, value=35  
+ 1                   column=Schedule:dt, timestamp=1685421138374, value=12:10  
+ 2                   column=Delay:, timestamp=1685425059791, value=15          
+ 2                   column=Delay:min, timestamp=1685424696441, value=15       
+ 2                   column=FlightInfo:dest, timestamp=1685421201550, value=Mum
+                     bai                                                       
+ 2                   column=FlightInfo:source, timestamp=1685421190106, value=K
+                     olkata                                                    
+ 2                   column=Schedule:at, timestamp=1685421218374, value=11:15  
+ 2                   column=Schedule:delay, timestamp=1685425189698, value=25  
+ 2                   column=Schedule:dt, timestamp=1685421233350, value=13:15  
+ 3                   column=Delay:, timestamp=1685425070282, value=20          
+ 3                   column=Delay:min, timestamp=1685424686687, value=35       
+ 3                   column=FlightInfo:dest, timestamp=1685421281731, value=Del
+                     hi                                                        
+ 3                   column=FlightInfo:source, timestamp=1685421266630, value=M
+                     umbai                                                     
+ 3                   column=Schedule:at, timestamp=1685421303075, value=7:15   
+ 3                   column=Schedule:delay, timestamp=1685425197566, value=15  
+ 3                   column=Schedule:dt, timestamp=1685421318343, value=8:15   
+ 4                   column=Delay:, timestamp=1685425079608, value=25          
+ 4                   column=Delay:min, timestamp=1685424657389, value=25       
+ 4                   column=FlightInfo:dest, timestamp=1685421386010, value=Pun
+                     e                                                         
+ 4                   column=FlightInfo:source, timestamp=1685421363949, value=D
+                     elhi                                                      
+ 4                   column=Schedule:at, timestamp=1685421403698, value=9:15   
+ 4                   column=Schedule:delay, timestamp=1685425226930, value=5   
+ 4                   column=Schedule:dt, timestamp=1685421420318, value=10:15  
+4 row(s) in 0.0510 seconds
+
+hbase(main):014:0> put 'Flight',5,'FlightInfo:source','Goa'
+0 row(s) in 0.0480 seconds
+
+hbase(main):015:0> put 'Flight',5,'FlightInfo:dest','Mumbai'
+0 row(s) in 0.0100 seconds
+
+hbase(main):016:0> put 'Flight',5,'Schedule:at','10:30'
+0 row(s) in 0.0160 seconds
+
+hbase(main):017:0> put 'Flight',5,'Schedule:dt','11:30'
+0 row(s) in 0.0160 seconds
+
+hbase(main):018:0> put 'Flight',5,'Schedule:delay',10
+0 row(s) in 0.0130 seconds
+
+hbase(main):019:0> scan 'Flight'
+ROW                  COLUMN+CELL                                               
+ 1                   column=Delay:, timestamp=1685425048377, value=35          
+ 1                   column=Delay:min, timestamp=1685424706188, value=20       
+ 1                   column=FlightInfo:dest, timestamp=1685421028711, value=Mum
+                     bai                                                       
+ 1                   column=FlightInfo:source, timestamp=1685421006690, value=P
+                     une                                                       
+ 1                   column=Schedule:at, timestamp=1685421081035, value=10:10  
+ 1                   column=Schedule:delay, timestamp=1685425182161, value=35  
+ 1                   column=Schedule:dt, timestamp=1685421138374, value=12:10  
+ 2                   column=Delay:, timestamp=1685425059791, value=15          
+ 2                   column=Delay:min, timestamp=1685424696441, value=15       
+ 2                   column=FlightInfo:dest, timestamp=1685421201550, value=Mum
+                     bai                                                       
+ 2                   column=FlightInfo:source, timestamp=1685421190106, value=K
+                     olkata                                                    
+ 2                   column=Schedule:at, timestamp=1685421218374, value=11:15  
+ 2                   column=Schedule:delay, timestamp=1685425189698, value=25  
+ 2                   column=Schedule:dt, timestamp=1685421233350, value=13:15  
+ 3                   column=Delay:, timestamp=1685425070282, value=20          
+ 3                   column=Delay:min, timestamp=1685424686687, value=35       
+ 3                   column=FlightInfo:dest, timestamp=1685421281731, value=Del
+                     hi                                                        
+ 3                   column=FlightInfo:source, timestamp=1685421266630, value=M
+                     umbai                                                     
+ 3                   column=Schedule:at, timestamp=1685421303075, value=7:15   
+ 3                   column=Schedule:delay, timestamp=1685425197566, value=15  
+ 3                   column=Schedule:dt, timestamp=1685421318343, value=8:15   
+ 4                   column=Delay:, timestamp=1685425079608, value=25          
+ 4                   column=Delay:min, timestamp=1685424657389, value=25       
+ 4                   column=FlightInfo:dest, timestamp=1685421386010, value=Pun
+                     e                                                         
+ 4                   column=FlightInfo:source, timestamp=1685421363949, value=D
+                     elhi                                                      
+ 4                   column=Schedule:at, timestamp=1685421403698, value=9:15   
+ 4                   column=Schedule:delay, timestamp=1685425226930, value=5   
+ 4                   column=Schedule:dt, timestamp=1685421420318, value=10:15  
+ 5                   column=FlightInfo:dest, timestamp=1685427068764, value=Mum
+                     bai                                                       
+ 5                   column=FlightInfo:source, timestamp=1685427051960, value=G
+                     oa                                                        
+ 5                   column=Schedule:at, timestamp=1685427103685, value=10:30  
+ 5                   column=Schedule:delay, timestamp=1685427150639, value=10  
+ 5                   column=Schedule:dt, timestamp=1685427113329, value=11:30  
+5 row(s) in 0.0480 seconds
+
+hbase(main):020:0> 
+
